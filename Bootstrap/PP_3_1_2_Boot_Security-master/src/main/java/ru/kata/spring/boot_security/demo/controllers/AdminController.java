@@ -1,5 +1,4 @@
 package ru.kata.spring.boot_security.demo.controllers;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,14 +17,12 @@ public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
 
-
     public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-
     }
 
-    @GetMapping()
+    @GetMapping
     public String listUsers(@AuthenticationPrincipal User currentUser, ModelMap model) {
         model.addAttribute("user", currentUser);
         model.addAttribute("listUsers", userService.listUsers());
@@ -41,7 +38,6 @@ public class AdminController {
 
     @PostMapping("/new")
     public String createNewUser(@ModelAttribute("user") User user) {
-        System.out.println("In post");
         if (userService.userAlreadyExists(user.getUsername()) == null) {
             userService.add(user);
             return "redirect:/admin";

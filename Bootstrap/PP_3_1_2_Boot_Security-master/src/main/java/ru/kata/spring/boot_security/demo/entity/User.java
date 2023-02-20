@@ -6,12 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 
 @Entity
 @Table(name = "users")
@@ -73,7 +69,6 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-
     @Override
     public String getUsername() {
         return email;
@@ -102,7 +97,6 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         return getRoles();
     }
 
@@ -130,7 +124,6 @@ public class User implements UserDetails {
         var result = roles.stream().map(role -> role.getName().toString().substring(5).concat(" ")).sorted().toList();
         return String.join("", result);
     }
-
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;

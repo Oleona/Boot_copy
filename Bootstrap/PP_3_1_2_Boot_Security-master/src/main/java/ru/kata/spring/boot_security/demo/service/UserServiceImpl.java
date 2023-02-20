@@ -14,10 +14,8 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
-@Transactional
-public class UserServiceImpl implements UserService {//, UserDetailsService
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -34,19 +32,20 @@ public class UserServiceImpl implements UserService {//, UserDetailsService
         userRepository.save(user);
     }
 
-    @Transactional
+
     @Override
     public List<User> listUsers() {
         return userRepository.findAll();
 
     }
 
+    @Transactional
     @Override
     public void delete(Long userId) {
         userRepository.deleteById(userId);
     }
 
-
+    @Transactional
     @Override
     public void update(User user, Long id) {
         String pass = user.getPassword();
@@ -67,7 +66,7 @@ public class UserServiceImpl implements UserService {//, UserDetailsService
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);//.orElseGet(User::new);
+        return userRepository.findByEmail(email);
     }
 
 
