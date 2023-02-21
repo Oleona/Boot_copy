@@ -24,7 +24,7 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     private String password;
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY)
